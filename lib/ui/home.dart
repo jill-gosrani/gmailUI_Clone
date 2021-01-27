@@ -1,23 +1,3 @@
-# gmail_clone
-
-A new Flutter application to showcase how to build Gmail with Flutter.
-
-Video Tutorial: [YouTube](https://youtu.be/RWInOp5My3g)
-
-## Screenshots
-
-![listview](https://github.com/AppleEducate/gmail_clone/blob/master/screenshots/listview.png)
-
-![details](https://github.com/AppleEducate/gmail_clone/blob/master/screenshots/details.png)
-
-![tablet](https://github.com/AppleEducate/gmail_clone/blob/master/screenshots/tablet.png)
-
-![selection](https://github.com/AppleEducate/gmail_clone/blob/master/screenshots/selection.png)
-
-
-## Example 
-
-``` dart
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gmail_clone/ui/app/app.dart';
@@ -53,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return DetailsScreen(
           appBar: AppBar(
             elevation: 0.0,
+            backgroundColor: Colors.blue[100],
             actions: [
               IconButton(
                 icon: Icon(Icons.archive),
@@ -64,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     _emails.removeAt(index);
                   });
+                  if (!_tablet)
+                    Navigator.of(context, rootNavigator: true).pop();
                 },
               ),
               IconButton(
@@ -138,9 +121,21 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         );
       },
-      floatingActionButton: EmailFAB(),
+      floatingActionButton: EmailFAB(
+        onPressed: () {
+          setState(() {
+            _emails.add(
+              EmailItem(
+                avatar: "AG",
+                title: "XYZ",
+                description: "hello this is a test ",
+                favorite: true,
+                date: DateTime(2020, 10, 7, 17, 30),
+              ),
+            );
+          });
+        },
+      ),
     );
   }
 }
-
-```
